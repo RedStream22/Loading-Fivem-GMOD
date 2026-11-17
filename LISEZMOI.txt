@@ -1,0 +1,41 @@
+ECRAN DE CHARGEMENT HELDORA RP (mode video cinema)
+===================================================
+
+1) AJOUTER VOTRE VIDEO
+   - Enregistrez des images de votre map rp_southside avec OBS (1080p, 60 fps
+     si possible) : voitures de police, rues, hold-up, personnages...
+     Une video de 45 a 90 secondes, ou plusieurs courtes.
+   - Convertissez en WEBM (format le plus sur dans GMod), avec ffmpeg :
+       ffmpeg -i ma_video.mp4 -c:v libvpx-vp9 -b:v 2.5M -vf scale=1920:-2 -r 30 -c:a libopus -b:a 128k video1.webm
+     (Ou envoyez-moi votre video, je la convertis pour vous.)
+   - Gardez chaque fichier sous ~30 Mo : il est telecharge a chaque connexion.
+   - Mettez video1.webm (video2.webm...) a cote de index.html.
+   - Ouvrez index.html avec le Bloc-notes et, dans CONFIG, ecrivez :
+       VIDEOS : ["video1.webm", "video2.webm"],
+
+2) HEBERGER LA PAGE (obligatoire)
+   Un loading screen GMod est une page web accessible par un lien https.
+   Envoyez TOUT le contenu du dossier (index.html, logo.png, videos) sur un
+   hebergement web (site du serveur, GitHub Pages, Netlify...), dans le MEME dossier.
+
+3) ACTIVER SUR LE SERVEUR
+   Dans garrysmod/cfg/server.cfg :
+       sv_loadingurl "https://VOTRE-SITE/heldora_loading/index.html"
+   Puis redemarrez le serveur.
+
+4) REGLAGES (bloc CONFIG, tout en haut du script de index.html)
+   MODE        "cinema" (video plein ecran) ou "complet" (grand titre + infos serveur)
+   LETTERBOX   true/false : bandes noires cinema
+   VIDEO_SOUND true/false : son de la video (bouton en haut a droite pour le couper)
+   TITLE_MAIN / TITLE_SUB : titre qui apparait en bas a gauche au debut
+   TIPS        : messages de regles qui defilent
+   DISCORD, MUSIC_URL, etc.
+
+5) TESTER
+   Double-cliquez sur index.html : mode demo dans votre navigateur (la barre
+   avance seule). En jeu, elle suit le vrai telechargement.
+
+Conseil enregistrement GMod : cachez l'interface avec  cl_drawhud 0  , filmez
+sur un serveur de test, avec des mouvements de camera lents (voiture qui passe,
+personnage qui marche vers la camera, gyrophares la nuit).
+N'utilisez que des images que vous avez filmees vous-meme ou dont vous avez les droits.
